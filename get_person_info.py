@@ -9,7 +9,6 @@ def get_user_info(url, headers):
     return response.text
 
 def get_currnet_person(soup):
-    # TODO: Реализовать парсинг для действующих членов
     data = soup.find('div', class_ = 'reestr').find_all('table')
     temp_dict = {}
     for row in data:
@@ -21,7 +20,15 @@ def get_currnet_person(soup):
             value = None
         temp_dict[key] = value
     return {
-        'bilet': temp_dict.get('Членский билет')
+        'bilet': temp_dict.get('Членский билет'),
+        'grade': temp_dict.get('Степень членства'),
+        'satisfied': temp_dict.get('Соответствие условиям членства в СРО, предусмотренным законодательством Российской Федерации и (или) внутренними документами СРО'),
+        'reestr_number': temp_dict.get('Номер в Реестре РОО'),
+        'contacts': temp_dict.get('Контакты'),
+        'organization': temp_dict.get('Организация (место работы)'),
+        'experience': temp_dict.get('Стаж'),
+        'ensurance': temp_dict.get('Страхование деятельности'),
+        'compinsation': temp_dict.get('Компенсационный фонд')
     }
 
 def get_uncurrnet_person(soup):  

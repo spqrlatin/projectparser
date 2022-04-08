@@ -9,8 +9,20 @@ def get_user_info(url, headers):
     return response.text
 
 def get_currnet_person(soup):
-    # Реализовать парсинг для действующих членов
-    return {}
+    # TODO: Реализовать парсинг для действующих членов
+    data = soup.find('div', class_ = 'reestr').find_all('table')
+    temp_dict = {}
+    for row in data:
+        # print(row)
+        key = row.find('td').text.strip()
+        try:
+            value = ' '.join(row.find('td', class_ = 'posrel').get_text(strip=True, separator='\n').split('\n')[:-1]).strip()
+        except:
+            value = None
+        temp_dict[key] = value
+    return {
+        'bilet': temp_dict.get('Членский билет')
+    }
 
 def get_uncurrnet_person(soup):  
     try:

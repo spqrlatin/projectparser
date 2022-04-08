@@ -1,0 +1,30 @@
+/* Debug */
+.debug{background:rgba(255,255,0,0.5);}
+.debug::before{content:"DEBUG";font-size:12px;font-family:Arial;display:block;background:rgba(0,0,0,.5);color:#fff;float:right;margin-top:-2em;padding:0.25em 1em;}
+
+/* Fix vertical distances on the page */
+.header{height:235px;}
+.header+.content{padding-top:26px;}
+.breadcrumbs{padding-bottom:22px;}
+.content h1{padding-bottom:20px;}
+
+/* Fix position of slider with brand picture */
+.header + .slide-box
+{
+	margin-top: -16px;
+}
+
+/* Fix for menu active item */
+.rmenu ul li.act span{padding-left: 23px;}
+
+/* Styles for paragraphs and lists */
+.str-box h2{font-size:18px;font-family:'PT Sans Narrow',sans-serif;text-transform:uppercase;font-weight:normal;padding:0;margin:21px 0 15px;}
+.str-box p{line-height:21px;margin:0 0 18px 0;font-size:13px;padding:0;}
+.str-box  a:hover{color:#dd2a0c}
+.str-box ul, .str-box ol{margin:0 0 18px 18px;padding:0}
+.str-box li{line-height:21px;margin:0 0 9px 0;font-size:13px;list-style:square;padding:0;}
+/*.str-box li:last-child{padding-bottom:0;}*/
+.str-box .news-date-time {color:#999;}
+.str-box p.blockquote{color:#777;line-height:21px;padding-left:16px;font-size:13px;border-left: 2px solid #ddd;}
+.str-box div.blockquote{padding-left:16px;border-left: 2px solid #ddd;}
+.str-box div.blockquote p,.str-box div.blockquote ul li{color:#777;line-height:21px;font-size:13px;}

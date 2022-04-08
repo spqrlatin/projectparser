@@ -1,0 +1,73 @@
+/* #slider1 {list-style: none;overflow-y: auto;overflow-x: hidden;} */
+#slider2 {list-style: none;overflow-y: auto;overflow-x: hidden;}
+#slider3 {list-style: none;overflow-y: auto;overflow-x: hidden;}
+
+.anythingSlider-default .arrow a span {visibility:hidden}
+.anythingSlider-default .anythingControls a {background:url(../images/dot1.png) no-repeat}
+.anythingSlider-default .anythingControls a.cur, .anythingSlider-default .anythingControls a:hover {background:url(../images/dot2.png) no-repeat}
+
+.anythingSlider-default .anythingControls a.start-stop {display:none !important}
+.anythingSlider-default .anythingControls a.start-stop.playing {display:none  !important}
+.anythingSlider-default .arrow {top: 50%;position: absolute;display: none;}
+
+/* back arrow */
+.anythingSlider-default .back { left: -20px;}
+.anythingSlider-default .back a { background:url(../images/arr_prev2.png) no-repeat;width:8px;text-decoration:none;display:block;height:29px;width: 16px;}
+.anythingSlider-default .back a:hover, .anythingSlider-default .back a.hover {}
+/* forward arrow */
+.anythingSlider-default .forward { right: -20px; }
+.anythingSlider-default .forward a {background:url(../images/arr_next2.png) no-repeat;width:8px;text-decoration:none;display:block;height:29px;width: 16px;}
+.anythingSlider-default .forward a:hover, .anythingSlider-default .forward a.hover {}
+
+.footer_slider .forward,
+.footer_slider .back
+ {top: 100%;}
+
+.anythingSlider-default .anythingControls {outline: 0; display: block;background:url(../images/sep01.png) center center no-repeat;height:16px;width:610px;margin:20px 0 0 0;}
+.anythingSlider-default .anythingControls ul {margin: 0 auto; padding: 0;width:60px}
+.anythingSlider-default .anythingControls ul li { display: inline; }
+.anythingSlider-default .anythingControls ul a {display: inline-block;text-decoration: none;height:16px;margin:0 0 0 5px;text-align: center;outline: 0;width:16px;text-indent:-9999px}
+.anythingSlider-default .anythingControls ul li.first a{margin-left:0}
+.anythingSlider-default .anythingControls .anythingNavWindow {overflow: hidden;float: left;}
+
+.anythingSlider-gallery {border-top:1px dotted #ccc !important;width:265px !important}
+.anythingSlider-gallery .anythingControls{display:none !important}
+.anythingSlider-gallery .anythingControls a {background:url(../images/dot1.png) no-repeat}
+.anythingSlider-gallery .anythingControls a.cur,
+.anythingSlider-gallery .anythingControls a:hover {background:url(../images/dot2.png) no-repeat}
+
+.anythingSlider-gallery .anythingControls a.start-stop {display:none !important}
+.anythingSlider-gallery .anythingControls a.start-stop.playing {display:none  !important}
+
+.anythingSlider-gallery .arrow {top:-25px;position: absolute;}
+.anythingSlider-gallery .arrow a {display: block;outline: 0;height:12px}
+
+
+/* back arrow */
+.anythingSlider-gallery .back { left: 0;}
+.anythingSlider-gallery .back a { background:url(../images/prev.png) 0 3px no-repeat;width:75px;text-decoration:none;display:block;padding-left:45px}
+.anythingSlider-gallery .back a:hover, .anythingSlider-gallery .back a.hover {}
+/* forward arrow */
+.anythingSlider-gallery .forward { right: 0; }
+.anythingSlider-gallery .forward a {background:url(../images/next.png) 100% 3px no-repeat;width:70px;text-decoration:none;display:block;padding-right:42px}
+.anythingSlider-gallery .forward a:hover, .anythingSlider-gallery .forward a.hover {}
+
+
+.anythingSlider-gallery .anythingControls {outline: 0; display: none;}
+.anythingSlider-gallery .anythingControls ul {margin: 0 auto; padding: 0;width:60px}
+.anythingSlider-gallery .anythingControls ul li { display: inline; }
+.anythingSlider-gallery .anythingControls ul a {display: inline-block;text-decoration: none;height:16px;margin:0 0 0 5px;text-align: center;outline: 0;width:16px;text-indent:-9999px}
+.anythingSlider-gallery .anythingNavWindow {overflow: hidden;float: left;}
+
+
+
+.anythingSlider {	display: block;	overflow: visible !important;	position: relative;}
+.anythingSlider .anythingWindow {	overflow: hidden;	position: relative;	width: 100%;	height: 100%;}
+.anythingSlider .anythingBase {	background: transparent;	list-style: none;	position: absolute;	overflow: visible !important;	top: 0;	left: 0;	margin: 0;	padding: 0;}
+.anythingSlider .arrow span {color:#3d3e3f;font-size:12px;border-bottom:1px dotted #3d3e3f}
+.anythingSlider .arrow.disabled {	display: none;}
+.anythingSlider .panel {	background: transparent;	display: block;	overflow: hidden;	float: left;	padding: 0;	margin: 0;}
+.anythingSlider .vertical .panel {	float: none;}
+.anythingSlider .fade .panel {	float: none;	position: absolute;	top: 0;	left: 0;	z-index: -1;}
+.anythingSlider .fade .activePage {	z-index: 0;}
+

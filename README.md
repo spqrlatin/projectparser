@@ -11,6 +11,12 @@ pip install -r req.txt
 
 ![ER](ER_diag.png)
 
+Link
+
+https://dbdesigner.page.link/wCPjHn8Gwk7iNKeEA
+
+
+
 ## TODO
 
 [TODO](TODO.md)

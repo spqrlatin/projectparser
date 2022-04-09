@@ -65,4 +65,3 @@ if __name__ == '__main__':
     result = parse_main_page()
     with open('users.json', 'w', encoding='utf-8') as file:
         json.dump(result, indent=4, fp=file, ensure_ascii=False)
-

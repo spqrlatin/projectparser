@@ -8,17 +8,24 @@ def get_user_info(url, headers):
     response = requests.get(url, headers=headers)
     return response.text
 
+def parse_table(soup):
+    try:
+        data = soup.find('div', class_ = 'reestr').find_all('table')
+        temp_dict = {}
+        for row in data:
+            # print(row)
+            key = row.find('td').text.strip()
+            try:
+                value = ' '.join(row.find('td', class_ = 'posrel').get_text(strip=True, separator='\n').split('\n')[:-1]).strip()
+            except:
+                value = None
+            temp_dict[key] = value
+        return temp_dict
+    except:
+        return {}
+
 def get_current_person(soup):
-    data = soup.find('div', class_ = 'reestr').find_all('table')
-    temp_dict = {}
-    for row in data:
-        # print(row)
-        key = row.find('td').text.strip()
-        try:
-            value = ' '.join(row.find('td', class_ = 'posrel').get_text(strip=True, separator='\n').split('\n')[:-1]).strip()
-        except:
-            value = None
-        temp_dict[key] = value
+    temp_dict = parse_table(soup)
     return {
         'bilet': temp_dict.get('Членский билет'),
         'grade': temp_dict.get('Степень членства'),
@@ -32,16 +39,7 @@ def get_current_person(soup):
     }
 
 def get_uncurrent_person(soup):
-    data = soup.find('div', class_ = 'reestr').find_all('table')
-    temp_dict = {}
-    for row in data:
-        # print(row)
-        key = row.find('td').text.strip()
-        try:
-            value = ' '.join(row.find('td', class_ = 'posrel').get_text(strip=True, separator='\n').split('\n')[:-1]).strip()
-        except:
-            value = None
-        temp_dict[key] = value
+    temp_dict = parse_table(soup)
     return {
         'excluded': temp_dict.get('Исключен'),
         'stopped': temp_dict.get('Приостановка права осуществления оценочной деятельности'),

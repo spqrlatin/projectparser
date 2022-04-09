@@ -24,7 +24,7 @@ def parse_table(soup):
     except:
         return {}
 
-def get_current_person(soup):
+def get_person(soup):
     temp_dict = parse_table(soup)
     return {
         'bilet': temp_dict.get('Членский билет'),
@@ -35,22 +35,11 @@ def get_current_person(soup):
         'organization': temp_dict.get('Организация (место работы)'),
         'experience': temp_dict.get('Стаж'),
         'ensurance': temp_dict.get('Страхование деятельности'),
-        'compensation': temp_dict.get('Компенсационный фонд')
-    }
-
-def get_uncurrent_person(soup):
-    temp_dict = parse_table(soup)
-    return {
+        'compensation': temp_dict.get('Компенсационный фонд'),
         'excluded': temp_dict.get('Исключен'),
-        'stopped': temp_dict.get('Приостановка права осуществления оценочной деятельности'),
-        'bilet': temp_dict.get('Членский билет'),
-        'grade': temp_dict.get('Степень членства'),
-        'reestr_number': temp_dict.get('Номер в Реестре РОО'),
-        'contacts': temp_dict.get('Контакты'),
-        'organization': temp_dict.get('Организация (место работы)'),
-        'experience': temp_dict.get('Стаж'),
-        'compensation': temp_dict.get('Компенсационный фонд')
-    }    
+        'stopped': temp_dict.get('Приостановка права осуществления оценочной деятельности')
+    }
+ 
 def cleanup_changed(content, idx):
     if idx > len(content):
         return None
@@ -76,10 +65,8 @@ def parse_user_info(content, url):
         status = soup.find("table", class_="top").find('td').text.strip()
     except:
         status = "Действующий"
-    if status != 'Действующий':
-        expanded_dict = get_uncurrent_person(soup)
-    else:
-        expanded_dict = get_current_person(soup)
+
+    expanded_dict = get_person(soup)
     return {
         'lfm': lfm,
         'birth_date': date_of_birth,

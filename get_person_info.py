@@ -30,43 +30,7 @@ def get_current_person(soup):
         'ensurance': temp_dict.get('Страхование деятельности'),
         'compensation': temp_dict.get('Компенсационный фонд')
     }
-"""
-def get_uncurrnet_person(soup):  
-    try:
-        posrel_all = soup.find_all("td", class_="posrel")
-        exclusion_data =  posrel_all[0].get_text(strip=True, separator='\n').split('\n')
-        exclusion_date = exclusion_data[1]
-        exlusion_reason = exclusion_data[3]
-    except:
-        exclusion_date = None
-        exlusion_reason = None
-    try: 
-        reestr_number = re.search('[0-9]+', posrel_all[4].get_text(strip=True, separator='\n').split('\n')[0]).group(0)    
-    except:
-        reestr_number = None
-    contacts = cleanup_changed(posrel_all, 6)
-    organization = cleanup_changed(posrel_all, 7)
-    experience = cleanup_changed(posrel_all, 8)
-    try:
-        ensurance_orgs_list = []
-        ensurance_orgs = posrel_all[9].get_text(strip=True, separator='\n').split('Страховая организация')
-        for ensurance_org in ensurance_orgs:
-            if ensurance_org:
-                ensurance_orgs_list.append(' '.join(ensurance_org.split('\n')[:-1]).strip())
-    except:
-        ensurance_org = None
-    compensation = cleanup_changed(posrel_all, 14)
-    uncurrent_person_dict = {'exlusion_reason': exlusion_reason,
-        'exclusion_date': exclusion_date,
-        'reestr_number': reestr_number,
-        'contacts': contacts,
-        'organization': organization,
-        'experience': experience,
-        'ensurance_org': ensurance_orgs_list,
-        'compensation': compensation
-    }
-    return uncurrent_person_dict
-"""
+
 def get_uncurrent_person(soup):
     data = soup.find('div', class_ = 'reestr').find_all('table')
     temp_dict = {}

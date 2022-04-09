@@ -8,7 +8,7 @@ def get_user_info(url, headers):
     response = requests.get(url, headers=headers)
     return response.text
 
-def get_currnet_person(soup):
+def get_current_person(soup):
     data = soup.find('div', class_ = 'reestr').find_all('table')
     temp_dict = {}
     for row in data:
@@ -28,9 +28,9 @@ def get_currnet_person(soup):
         'organization': temp_dict.get('Организация (место работы)'),
         'experience': temp_dict.get('Стаж'),
         'ensurance': temp_dict.get('Страхование деятельности'),
-        'compinsation': temp_dict.get('Компенсационный фонд')
+        'compensation': temp_dict.get('Компенсационный фонд')
     }
-
+"""
 def get_uncurrnet_person(soup):  
     try:
         posrel_all = soup.find_all("td", class_="posrel")
@@ -66,7 +66,29 @@ def get_uncurrnet_person(soup):
         'compensation': compensation
     }
     return uncurrent_person_dict
-    
+"""
+def get_uncurrent_person(soup):
+    data = soup.find('div', class_ = 'reestr').find_all('table')
+    temp_dict = {}
+    for row in data:
+        # print(row)
+        key = row.find('td').text.strip()
+        try:
+            value = ' '.join(row.find('td', class_ = 'posrel').get_text(strip=True, separator='\n').split('\n')[:-1]).strip()
+        except:
+            value = None
+        temp_dict[key] = value
+    return {
+        'excluded': temp_dict.get('Исключен'),
+        'stopped': temp_dict.get('Приостановка права осуществления оценочной деятельности'),
+        'bilet': temp_dict.get('Членский билет'),
+        'grade': temp_dict.get('Степень членства'),
+        'reestr_number': temp_dict.get('Номер в Реестре РОО'),
+        'contacts': temp_dict.get('Контакты'),
+        'organization': temp_dict.get('Организация (место работы)'),
+        'experience': temp_dict.get('Стаж'),
+        'compensation': temp_dict.get('Компенсационный фонд')
+    }    
 def cleanup_changed(content, idx):
     if idx > len(content):
         return None
@@ -93,9 +115,9 @@ def parse_user_info(content, url):
     except:
         status = "Действующий"
     if status != 'Действующий':
-        expanded_dict = get_uncurrnet_person(soup)
+        expanded_dict = get_uncurrent_person(soup)
     else:
-        expanded_dict = get_currnet_person(soup)
+        expanded_dict = get_current_person(soup)
     return {
         'lfm': lfm,
         'birth_date': date_of_birth,
@@ -108,8 +130,8 @@ def parse_user_info(content, url):
 
 if __name__ == '__main__':
     from parser import headers
-    # url = 'http://sroroo.ru/about/reestr/379972/'
-    url = 'http://sroroo.ru/about/reestr/806693/'
+    url = 'http://sroroo.ru/about/reestr/379972/'
+    #url = 'http://sroroo.ru/about/reestr/806693/'
     # with open("index.html", "w") as file:
     #     data = get_user_info(url, headers)
     #     file.write(data)

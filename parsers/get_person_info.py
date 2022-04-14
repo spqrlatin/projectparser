@@ -52,7 +52,7 @@ def parse_user_info(content, url):
     soup = BeautifulSoup(content, "html.parser")
     try:
         lfm = soup.find("h3").text
-    except:
+    except AttributeError:
         lfm = None
     try:
         date_and_city_of_birth = soup.find("div", class_="reestr").find('p').text.strip()

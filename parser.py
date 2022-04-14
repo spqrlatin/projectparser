@@ -2,11 +2,11 @@ from pprint import pprint
 import requests
 from bs4 import BeautifulSoup
 from os import sys
-from get_person_info import get_user_info, parse_user_info
+from parsers.get_person_info import get_user_info, parse_user_info
 import json
 from progress.bar import IncrementalBar
-
-BASE_URL='http://sroroo.ru'
+from config import BASE_URL
+from db.model import db, Rsodata
 
 headers = {
     "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.174 YaBrowser/22.1.3.856 (beta) Yowser/2.5 Safari/537.36"
@@ -61,7 +61,31 @@ def parse_main_page():
     
     return person_list
 
+def return_parsed_data():
+    with open('users.json', 'r', encoding='utf-8') as file:
+        return json.load(file)
+    
+def save_data(row):
+    rso = Rsodata(reestr_number=row.get('reestr_number'),
+    satisfied = row.get('satisfied'), excluded = row.get('excluded'),
+    stopped = row.get('stopped'), grade = row.get('grade'))
+    # ensurance = Ensurance(ensurance_org=row.get('ensurance_org'))
+    # user = User(#firstname = row.get('firstname'),
+    # #lastname = row.get('lastname'),
+    # #middlename = row.get('middlename'),
+    # lfm = row.get('lfm'),
+    # compensation = row.get('compensation'),
+    # experience = row.get('experience'),
+    # contacts = row.get('contacts'),
+    # ensurance_id = row.get('ensurance_id'),
+    # rso_id = row.get('rso_id'),
+    # url = row.get('url'))
+    print(db.session.add(rso))
+    print(db.session.commit())
+
 if __name__ == '__main__':
     result = parse_main_page()
-    with open('users.json', 'w', encoding='utf-8') as file:
-        json.dump(result, indent=4, fp=file, ensure_ascii=False)
+    #with open('users.json', 'w', encoding='utf-8') as file:
+    #    json.dump(result, indent=4, fp=file, ensure_ascii=False)
+    for row in return_parsed_data():
+             save_data(row)

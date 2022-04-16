@@ -47,7 +47,7 @@ def create_app():
         #print(agent_list)
         #print("Everything done")
         #print(title, weather, news_list)
-        return render_template('active.html', page_title=title,
+        return render_template('info.html', page_title=title,
                                agent_list=agent_list, columns=columns,
                                rso_data_column_dict=rso_data_column_dict,
                                displayed_col=displayed_col)

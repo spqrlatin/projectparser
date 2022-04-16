@@ -30,6 +30,7 @@ def get_person(soup):
     satisfied = temp_dict.get('Соответствие условиям членства в СРО, предусмотренным законодательством Российской Федерации и (или) внутренними документами СРО')
     stopped = temp_dict.get('Приостановка права осуществления оценочной деятельности')
     grade = temp_dict.get('Степень членства')
+    ensurance = temp_dict.get('Страхование деятельности')
     return {
         'bilet': temp_dict.get('Членский билет'),
         'grade': grade if grade else 'Не является членом',
@@ -38,16 +39,10 @@ def get_person(soup):
         'contacts': temp_dict.get('Контакты'),
         'organization': temp_dict.get('Организация (место работы)'),
         'experience': temp_dict.get('Стаж'),
-        'ensurance': temp_dict.get('Страхование деятельности'),
+        'ensurance': ensurance if ensurance else 'Страховая организация отсутствует',
         'compensation': temp_dict.get('Компенсационный фонд'),
         'excluded': temp_dict.get('Исключен', 'Действующий'),
-        'stopped': stopped if stopped else 'Не приостановлено',
-        'lfm': temp_dict.get(''),
-        'compensation': temp_dict.get(''),
-        'experience': temp_dict.get(''),
-        'contacts': temp_dict.get(''),
-        'url': temp_dict.get(''),
-        'ensurance_org': temp_dict.get('')
+        'stopped': stopped if stopped else 'Не приостановлено'
     }
     
  

@@ -24,7 +24,7 @@ def get_data_from_url(url):
         print("Something went wrong, while ")
         print(e)
     if not response.status_code == 200:
-        raise Error
+        raise Exception("Status code should be 200")
     return response.text # check what should be returned
 
 def get_data(source_type):
@@ -60,7 +60,7 @@ def parse_main_page():
         person_list.append(user_parsed_data)
     bar.finish()
     for error in error_list:
-        print(f"Can't get user info {error[0]} from url {error[1]}")
+        print(f"Can't get user info for {error[0]} from url {error[1]}")
     return person_list
 
 def return_parsed_data():
@@ -69,19 +69,20 @@ def return_parsed_data():
     
 def save_data(row):
     rso = Rsodata(reestr_number=row.get('reestr_number'),
-    satisfied = row.get('satisfied'), excluded = row.get('excluded'),
-    stopped = row.get('stopped'), grade = row.get('grade'))
-    #ensurance = Ensurance(ensurance_org=row.get('ensurance_org'))
-    # user = User(#firstname = row.get('firstname'),
-    # #lastname = row.get('lastname'),
-    # #middlename = row.get('middlename'),
-    # lfm = row.get('lfm'),
-    # compensation = row.get('compensation'),
-    # experience = row.get('experience'),
-    # contacts = row.get('contacts'),
-    # ensurance_id = row.get('ensurance_id'),
-    # rso_id = row.get('rso_id'),
-    # url = row.get('url'))
+        satisfied = row.get('satisfied'), excluded = row.get('excluded'),
+        stopped = row.get('stopped'), grade = row.get('grade'),
+        ensurance = row.get('ensurance'),
+        # user = User(#firstname = row.get('firstname'),
+        # #lastname = row.get('lastname'),
+        # #middlename = row.get('middlename'),
+        lfm = row.get('lfm'),
+        compensation = row.get('compensation'),
+        experience = row.get('experience'),
+        contacts = row.get('contacts'),
+        # ensurance_id = row.get('ensurance_id'),
+        # rso_id = row.get('rso_id'),
+        url = row.get('url')
+        )
     db.session.add(rso)
     db.session.commit()
 

@@ -1,0 +1,11 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="btn btn-{% if request.path == '/' %}info{% else %}primary{% endif %}" role="button" autocomplete="off" href="/">Отобразить всех агентов</a>
+        </li>
+        <li class="nav-item active 2">
+          <a class="btn btn-{% if request.path == '/active' %}info{% else %}primary{% endif %}" role="button" autocomplete="off" href="/active">Отобразить только действующих агентов</a>
+        </li>
+    </div>
+  </nav>

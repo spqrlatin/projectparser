@@ -24,7 +24,7 @@ def get_data_from_url(url):
         print("Something went wrong, while ")
         print(e)
     if not response.status_code == 200:
-        raise Error
+        raise Exception("Status code not 200")
     return response.text # check what should be returned
 
 def get_data(source_type):

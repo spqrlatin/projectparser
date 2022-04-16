@@ -6,9 +6,7 @@ from parserweb.parser import return_parsed_data
 def create_app():
     app = Flask(__name__)
     app.config.from_pyfile('config.py')
-    db.init_app(app)
-    
-    
+    db.init_app(app)    
     @app.route('/')
     def index():
         title = "Информация по агентам"
@@ -18,9 +16,16 @@ def create_app():
             'satisfied': "Соответствует ли",
             'excluded': "Является ли агентом",
             'stopped': "Прекращено ли членство",
-            'grade': "Степень членства"
+            'grade': "Степень членства",
+            'contacts': "Контакты",
+            'organization': "Страховые компании",
+            'experience': "Стаж",
+            'ensurance': "Страховщик",
+            'compensation': "Компенсационный фонд",
+            'lfm': "ФИО",
+            'url': "ссылка",            
             }
-        displayed_col = ['id', 'grade', 'stopped']
+        displayed_col = ['lfm', 'grade', 'excluded', 'url']
         agent_list = Rsodata.query.all()
         columns = Rsodata.__table__.columns.keys()
         print(columns)

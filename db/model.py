@@ -21,7 +21,7 @@ class Rsodata(db.Model):
     experience = db.Column(db.String, nullable=True)
     contacts = db.Column(db.Text, nullable=True)
     url = db.Column(db.String, unique=True, nullable=True)
-    ensurance_org=db.Column(db.String, nullable=True)
+    ensurance=db.Column(db.String, nullable=True)
     def __repr__(self):
         return '<Person info {} {} {} {}>'.format(self.reestr_number, self.satisfied ,self.excluded ,self.url)
         

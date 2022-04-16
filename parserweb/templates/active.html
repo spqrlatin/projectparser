@@ -1,6 +1,6 @@
 {% extends "index.html" %}
 {% block content %}
-<h2>Перечень агентов</h2>
+<h2>Перечень активных агентов</h2>
 <table class="table">
     <thead>
     <tr>
@@ -32,6 +32,7 @@
                 columns: [
                 null,
                 {searchable: false},
+                {ordable: false, searchable: false},
                 {ordable: false, searchable: false},
                 null],
             });

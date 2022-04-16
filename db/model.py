@@ -1,5 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 
+
 db = SQLAlchemy()
 
 """
@@ -15,6 +16,15 @@ class Rsodata(db.Model):
     excluded = db.Column(db.Text, nullable=True)
     stopped = db.Column(db.Text, nullable=True)
     grade = db.Column(db.String, nullable=True)
+    lfm = db.Column(db.String, nullable=True)
+    compensation = db.Column(db.String, nullable=True)
+    experience = db.Column(db.String, nullable=True)
+    contacts = db.Column(db.Text, nullable=True)
+    url = db.Column(db.String, unique=True, nullable=True)
+    ensurance_org=db.Column(db.String, nullable=True)
+    def __repr__(self):
+        return '<Person info {} {} {} {}>'.format(self.reestr_number, self.satisfied ,self.excluded ,self.url)
+        
 """
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -29,7 +39,4 @@ class User(db.Model):
     #rso_id = db.Column(db.Boolean, nullabale=True)  
     url = db.Column(db.String, unique=True, nullable=True)
 """
-    
-def __repr__(self):
-    return '<Person info {} {} {} {}>'.format(self.reestr_number, self.satisfied ,self.excluded ,self.url)
     

@@ -4,6 +4,7 @@ import re
 from pprint import pprint
 
 headers = {}
+
 def get_user_info(url, headers):
     response = requests.get(url, headers=headers)
     return response.text
@@ -26,19 +27,29 @@ def parse_table(soup):
 
 def get_person(soup):
     temp_dict = parse_table(soup)
+    satisfied = temp_dict.get('Соответствие условиям членства в СРО, предусмотренным законодательством Российской Федерации и (или) внутренними документами СРО')
+    stopped = temp_dict.get('Приостановка права осуществления оценочной деятельности')
+    grade = temp_dict.get('Степень членства')
     return {
         'bilet': temp_dict.get('Членский билет'),
-        'grade': temp_dict.get('Степень членства'),
-        'satisfied': temp_dict.get('Соответствие условиям членства в СРО, предусмотренным законодательством Российской Федерации и (или) внутренними документами СРО'),
+        'grade': grade if grade else 'Не является членом',
+        'satisfied': satisfied if satisfied else 'Не соответствует',
         'reestr_number': temp_dict.get('Номер в Реестре РОО'),
         'contacts': temp_dict.get('Контакты'),
         'organization': temp_dict.get('Организация (место работы)'),
         'experience': temp_dict.get('Стаж'),
         'ensurance': temp_dict.get('Страхование деятельности'),
         'compensation': temp_dict.get('Компенсационный фонд'),
-        'excluded': temp_dict.get('Исключен'),
-        'stopped': temp_dict.get('Приостановка права осуществления оценочной деятельности')
+        'excluded': temp_dict.get('Исключен', 'Действующий'),
+        'stopped': stopped if stopped else 'Не приостановлено',
+        'lfm': temp_dict.get(''),
+        'compensation': temp_dict.get(''),
+        'experience': temp_dict.get(''),
+        'contacts': temp_dict.get(''),
+        'url': temp_dict.get(''),
+        'ensurance_org': temp_dict.get('')
     }
+    
  
 def cleanup_changed(content, idx):
     if idx > len(content):
@@ -78,7 +89,7 @@ def parse_user_info(content, url):
 
 
 if __name__ == '__main__':
-    from parser import headers
+    from parserweb.parser import headers
     url = 'http://sroroo.ru/about/reestr/379972/'
     #url = 'http://sroroo.ru/about/reestr/806693/'
     # with open("index.html", "w") as file:

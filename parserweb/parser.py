@@ -2,10 +2,10 @@ from pprint import pprint
 import requests
 from bs4 import BeautifulSoup
 from os import sys
-from parsers.get_person_info import get_user_info, parse_user_info
+from parser_core.get_person_info import parse_user_info, get_user_info
 import json
 from progress.bar import IncrementalBar
-from config import BASE_URL
+from parserweb.config import BASE_URL
 from db.model import db, Rsodata
 
 headers = {
@@ -53,12 +53,14 @@ def parse_main_page():
         # print(f"Getting data for persons {index+1}, remaining {all_rows_len-index-1} persons to get")
         user_data = get_user_info(url, headers=headers)
         user_parsed_data = parse_user_info(user_data, url)
+        error_list = []
         if not user_parsed_data['lfm']:
-            print(f"There is no user data {href_obj.text}, skipping")
+            error_list.append((href_obj.text, url))
             continue
         person_list.append(user_parsed_data)
     bar.finish()
-    
+    for error in error_list:
+        print(f"Can't get user info {error[0]} from url {error[1]}")
     return person_list
 
 def return_parsed_data():
@@ -69,7 +71,7 @@ def save_data(row):
     rso = Rsodata(reestr_number=row.get('reestr_number'),
     satisfied = row.get('satisfied'), excluded = row.get('excluded'),
     stopped = row.get('stopped'), grade = row.get('grade'))
-    # ensurance = Ensurance(ensurance_org=row.get('ensurance_org'))
+    #ensurance = Ensurance(ensurance_org=row.get('ensurance_org'))
     # user = User(#firstname = row.get('firstname'),
     # #lastname = row.get('lastname'),
     # #middlename = row.get('middlename'),
@@ -80,12 +82,10 @@ def save_data(row):
     # ensurance_id = row.get('ensurance_id'),
     # rso_id = row.get('rso_id'),
     # url = row.get('url'))
-    print(db.session.add(rso))
-    print(db.session.commit())
+    db.session.add(rso)
+    db.session.commit()
 
 if __name__ == '__main__':
     result = parse_main_page()
-    #with open('users.json', 'w', encoding='utf-8') as file:
-    #    json.dump(result, indent=4, fp=file, ensure_ascii=False)
-    for row in return_parsed_data():
-             save_data(row)
+    with open('users.json', 'w', encoding='utf-8') as file:
+       json.dump(result, indent=4, fp=file, ensure_ascii=False)

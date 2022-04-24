@@ -41,23 +41,26 @@ def get_data(source_type):
     if source_type == 'file':
         return get_data_from_file('registry.html')
 
+fetched_data_dict = {}
 
 async def get_url(url):
     async with aiohttp.ClientSession() as session:
         async with session.get(url) as response:
-            return await response.text()
+            fetched_data_dict[url] = await response.text()
 
 
-async def get_data_from_url_list(url_list, chunk=50, pause=1):
+async def get_data_from_url_list(url_list, chunk=10, pause=1):
     list_len = len(url_list)
     bar = IncrementalBar('Getting user info', max = list_len)
     start_range = 0
     end_range = chunk
-    fetched_data_dict = {}
     while start_range != list_len:
+        task_list = []
         for idx in range(start_range, end_range):
-            data = await get_url(url_list[idx])
-            fetched_data_dict[url_list[idx]] = data
+            task = asyncio.create_task(get_url(url_list[idx]))
+            task_list.append(task)
+            #fetched_data_dict[url_list[idx]] = data
+        await asyncio.wait(task_list)
         bar.next(n=end_range-start_range)
         await asyncio.sleep(pause)
         start_range = end_range
